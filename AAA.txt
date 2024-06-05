@@ -1,0 +1,225 @@
+public static void main(String[] args) throws Exception {
+        System.out.println(estanTodos("abcd", "abecedario"));
+        System.out.println(charExcluyentes("abcd", "monitor"));
+        System.out.println(existeFrec("abbccc", 3));
+        System.out.println(mismosChar("abc", "abc", "abc", "abc"));
+        System.out.println(mismaLongitud("abc", "def", "ghi", "jkl", "mno"));
+
+        mostrarSubcadenas("abcde");
+        mostrarIguales("aaabbbccc");
+        mostrarLongitud("monitor", 4);
+        mostrarLetras("h1o2l3a4");
+        mostrarSinVocales("monitor");
+
+        //frases
+        String frase1 = "este es un ejemplo de prueba";
+        String frase2 = "prueba de un ejemplo este es";
+        String frase3 = "otra frase diferente para probar";
+
+        System.out.println(frecuenciaPal(frase1, "ejemplo"));
+        System.out.println(mismasPal(frase1, frase2));
+        System.out.println(excluyentes(frase1, frase3));
+        mostrarPalabras(frase1);
+        deLongitud(frase1, 2);
+    }
+
+    //DEPENDENCIAS
+    public static boolean seEncuentra(String s1, char ch) {
+        int i = 0;
+        while (i < s1.length()) {
+            if (s1.charAt(i) == ch) {
+                return true;
+            }
+            i = i + 1;
+        }
+        return false;
+    }
+
+    public static int frecuencia(String s1, char c) {
+        int count = 0;
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static boolean mismoChar(String s1, String s2) {
+        return estanTodos(s1, s2) && estanTodos(s2, s1);
+    }
+
+    public static boolean mismosChar(String s1, String s2, String s3) {
+        return mismoChar(s1, s2) && mismoChar(s2, s3) && mismoChar(s1, s3);
+    }
+
+    //.2
+    public static boolean vocal(char ch) {
+        ch = Character.toLowerCase(ch);
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+    }
+
+    //Consultas
+    // 1
+    public static boolean estanTodos(String s1, String s2) {
+        int i = 0;
+        while (i < s1.length()) {
+            if (!seEncuentra(s2, s1.charAt(i))) {
+                return false;
+            }
+            i = i + 1;
+        }
+        return true;
+    }
+
+    //2
+    public static boolean charExcluyentes(String s1, String s2) {
+        int i = 0;
+        while (i < s1.length() && i < s2.length()) {
+            if (seEncuentra(s2, s1.charAt(i))) {
+                return false;
+            }
+            i = i + 1;
+        }
+        return true;
+    }
+
+    //3
+    public static boolean existeFrec(String s1, int k) {
+        int i = 0;
+        while (i < s1.length()) {
+            if (frecuencia(s1, s1.charAt(i)) == k) {
+                return true;
+            }
+            i = i + 1;
+        }
+        return false;
+    }
+
+    //4
+    public static boolean mismosChar(String s1, String s2, String s3, String s4) {
+        return mismosChar(s1, s2, s3) && mismosChar(s2, s3, s4)
+                && mismosChar(s1, s3, s4) && mismosChar(s1, s2, s4);
+    }
+
+    //5
+    public static boolean mismaLongitud(String s1, String s2, String s3, String s4, String s5) {
+        return s1.length() == s2.length() && s1.length() == s3.length() && s1.length() == s4.length() && s1.length() == s5.length();
+    }
+
+    //Subcadenas
+    //1
+    public static void mostrarSubcadenas(String s1) {
+        int length = s1.length();
+        for (int i = 0; i < length; i++) {
+            for (int j = i + 1; j <= length; j++) {
+                String s2 = s1.substring(i, j);
+                System.out.println(s2);
+            }
+        }
+    }
+
+    //2
+    public static void mostrarIguales(String s1) {
+        int n = s1.length();
+        int i = 0;
+        while (i < n) {
+            int j = i + 1;
+            while (j < n && s1.charAt(j) == s1.charAt(i)) {
+                j++;
+            }
+            if (j - i > 1) {
+                System.out.println(s1.substring(i, j));
+            }
+            i = j;
+        }
+    }
+
+    //3
+    public static void mostrarLongitud(String s1, int k) {
+        int i = 0;
+        while (i <= s1.length() - k) {
+            System.out.println(s1.substring(i, i + k));
+            i = i + 1;
+        }
+    }
+
+    //4
+    public static void mostrarLetras(String s1) {
+        int i = 0;
+        while (i < s1.length()) {
+            int j = i;
+            while (j < s1.length() && Character.isLetter(s1.charAt(j))) {
+                j++;
+            }
+            if (j > i) {
+                System.out.println(s1.substring(i, j));
+            }
+            i = j + 1;
+        }
+    }
+
+    //5
+    public static void mostrarSinVocales(String s1) {
+        int i = 0;
+        while (i < s1.length()) {
+            int j = i;
+            while (j < s1.length() && !vocal(s1.charAt(j))) {
+                j++;
+            }
+            if (j > i) {
+                System.out.println(s1.substring(i, j));
+            }
+            i = j + 1;
+        }
+    }
+
+    //Palabras
+    //1
+    public static int frecuenciaPal(String f1, String pal) {
+        String[] palabras = f1.split("\\s+");
+        int count = 0;
+        for (String palabra : palabras) {
+            if (palabra.equals(pal)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    //2
+    public static boolean mismasPal(String f1, String f2) {
+        Set<String> set1 = new HashSet<>(Arrays.asList(f1.split("\\s+")));
+        Set<String> set2 = new HashSet<>(Arrays.asList(f2.split("\\s+")));
+        return set1.equals(set2);
+    }
+
+    //3
+    public static boolean excluyentes(String f1, String f2) {
+        Set<String> set1 = new HashSet<>(Arrays.asList(f1.split("\\s+")));
+        Set<String> set2 = new HashSet<>(Arrays.asList(f2.split("\\s+")));
+        for (String palabra : set1) {
+            if (set2.contains(palabra)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //4
+    public static void mostrarPalabras(String f1) {
+        String[] palabras = f1.split("\\s+");
+        for (String palabra : palabras) {
+            System.out.println(palabra);
+        }
+    }
+
+    //5
+    public static void deLongitud(String f2, int k) {
+        String[] palabras = f2.split("\\s+");
+        for (String palabra : palabras) {
+            if (palabra.length() == k) {
+                System.out.println(palabra);
+            }
+        }
+    }

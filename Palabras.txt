@@ -1,0 +1,60 @@
+//frases
+String frase1 = "este es un ejemplo de prueba";
+String frase2 = "prueba de un ejemplo este es";
+String frase3 = "otra frase diferente para probar";
+
+System.out.println(frecuenciaPal(frase1, "ejemplo"));
+System.out.println(mismasPal(frase1, frase2));
+System.out.println(excluyentes(frase1, frase3));
+mostrarPalabras(frase1);
+deLongitud(frase1, 2);
+
+//Palabras
+    //1
+    public static int frecuenciaPal(String f1, String pal) {
+        String[] palabras = f1.split("\\s+");
+        int count = 0;
+        for (String palabra : palabras) {
+            if (palabra.equals(pal)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    //2
+    public static boolean mismasPal(String f1, String f2) {
+        Set<String> set1 = new HashSet<>(Arrays.asList(f1.split("\\s+")));
+        Set<String> set2 = new HashSet<>(Arrays.asList(f2.split("\\s+")));
+        return set1.equals(set2);
+    }
+
+    //3
+    public static boolean excluyentes(String f1, String f2) {
+        Set<String> set1 = new HashSet<>(Arrays.asList(f1.split("\\s+")));
+        Set<String> set2 = new HashSet<>(Arrays.asList(f2.split("\\s+")));
+        for (String palabra : set1) {
+            if (set2.contains(palabra)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //4
+    public static void mostrarPalabras(String f1) {
+        String[] palabras = f1.split("\\s+");
+        for (String palabra : palabras) {
+            System.out.println(palabra);
+        }
+    }
+
+    //5
+    public static void deLongitud(String f2, int k) {
+        String[] palabras = f2.split("\\s+");
+        for (String palabra : palabras) {
+            if (palabra.length() == k) {
+                System.out.println(palabra);
+            }
+        }
+    }
